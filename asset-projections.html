@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Asset Projections</title>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+		<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+		<!--<script type="text/javascript" charset="utf-8">
+			window.onload = function () {
+				console.log('hello');
+			};
+		</script>-->
+	</head>
+	<body>
+		<h1>Asset Projections</h1>
+		<div id="content"></div>
+		<h2>Properties</h2>
+		<form action="#" id="add-property">
+			<input type="text" name="property-name" id="property-name"/>
+			<label for="property-name">Name</label>
+			<input type="number" name="property-value" id="property-value"/>
+			<label for="property-name">Value</label>
+			<input type="number" name="property-projected-increase" id="property-projected-increase"/>
+			<label for="property-name">Yearly increase (%)</label>
+			<button type="submit">Add</button>
+		</form>
+		<script type="text/jsx" charset="utf-8">
+			window.onload = function () {
+				var properties = [];
+				$("#add-property").submit(function (e) {
+					var property = {
+						name: $('#property-name').val(),
+						value: $('#property-value').val(),
+						increase: $('#property-projected-increase').val()
+					};
+					properties.push(property);
+					draw();
+					e.preventDefault();
+				});
+				var Projections = React.createClass({
+					render: function () {
+						return <table>
+							<thead>
+								<tr>
+									<th>Property Name</th>
+									<th>Property Value</th>
+									<th>Projected Increase</th>
+								</tr>
+							</thead>
+							<tbody>
+							{this.props.properties.map(function (property) {
+								return <tr>
+									<td>{property.name}</td>
+									<td>{property.value}</td>
+									<td>{property.increase}</td>
+								</tr>;
+							})}
+							</tbody>
+						</table>;
+					}
+				});
+				function draw () {
+					React.render(<Projections properties={properties} />,
+							document.getElementById("content"));
+				}
+				draw();
+			};
+		</script>
+	</body>
+</html>
