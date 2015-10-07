@@ -1,0 +1,94 @@
+window.onload = function () {
+    var model = {
+        properties: []
+    };
+
+    var getPropertyValue = require('./get-property-value');
+
+    function addProperty(e) {
+        var property = {
+            name: $('#property-name').val(),
+            value: $('#property-value').val(),
+            increase: $('#property-projected-increase').val()
+        };
+        model.properties.push(property);
+        draw();
+        e.preventDefault();
+    }
+    var Properties = React.createClass({
+        render: function () {
+            return <div>
+                <h2>Properties</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property Name</th>
+                            <th>Property Value</th>
+                            <th>Projected Increase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.properties.map(function (property) {
+                        return <tr>
+                            <td>{property.name}</td>
+                            <td>{property.value}</td>
+                            <td>{property.increase} %</td>
+                        </tr>;
+                    })}
+                    </tbody>
+                </table>
+                <form action="#" id="add-property" onSubmit={addProperty}>
+                    <label htmlFor="property-name">Name</label>
+                    <input type="text" name="property-name" id="property-name"/>
+                    <label htmlFor="property-name">Value</label>
+                    <input type="number" name="property-value" id="property-value"/>
+                    <label htmlFor="property-name">Yearly increase (%)</label>
+                    <input type="number" name="property-projected-increase" id="property-projected-increase"/>
+                    <button type="submit">Add</button>
+                </form>
+            </div>;
+        }
+    });
+
+    var Projections = React.createClass({
+        render: function () {
+            return <div>
+                <h2>Projections</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>2015</th>
+                            <th>2016</th>
+                            <th>2017</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.properties.map(function (property) {
+                            return <tr>
+                                <td>{property.name}</td>
+                                <td>{getPropertyValue(property, 1)}</td>
+                                <td>{getPropertyValue(property, 2)}</td>
+                                <td>{getPropertyValue(property, 3)}</td>
+                            </tr>;
+                        })}
+                    </tbody>
+                </table>
+            </div>;
+        }
+    });
+
+    var Container = React.createClass({
+        render: function () {
+            return <div>
+                <Projections properties={this.props.properties}/>
+                <Properties properties={this.props.properties} />
+            </div>
+        }
+    });
+    function draw () {
+        React.render(<Container properties={model.properties} />,
+                document.getElementById("content"));
+    }
+    draw();
+};

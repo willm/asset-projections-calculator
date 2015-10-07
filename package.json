@@ -1,0 +1,21 @@
+{
+  "name": "asset-projections",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "build": "browserify ./scripts/script.jsx -t babelify --outfile static/js/bundle.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "mocha": "^2.3.3"
+  }
+}
