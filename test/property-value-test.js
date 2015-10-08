@@ -18,6 +18,6 @@ describe('property value', () => {
             increase: 1
         };
         var value = getPropertyValue(property, 2);
-        assert.equal(value, 102.01);
+        assert.equal(value, 102);
     });
 });

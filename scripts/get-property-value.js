@@ -7,6 +7,6 @@ function getPropertyValue (property, numberOfYears) {
     for(var i = 0; i < numberOfYears; i++) {
         totalValue += (totalValue * (increase / 100));
     }
-    return totalValue;
+    return Math.round(totalValue);
 }
 module.exports = getPropertyValue;
