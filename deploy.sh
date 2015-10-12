@@ -1,15 +1,14 @@
 #! /bin/bash
 set -e
-npm install
-npm test
-npm run build
-date=date +"%s"
-mkdir /tmp/$date
-cd /tmp/$date
+DATE=$(date +%s)
+mkdir /tmp/$DATE
+pushd /tmp/$DATE
 git clone git@github.com:willm/AssetProjections.git
-cp asset-projections.html /tmp/$date/AssetProjections
-cp -R static /tmp/$date/AssetProjections/
-cd /tmp/$date/AssetProjections
+popd
+cp ./index.html /tmp/$DATE/AssetProjections
+cp -R static /tmp/$DATE/AssetProjections/
+pushd /tmp/$DATE/AssetProjections
 git add -A
 git commit -m "$(date)"
 git push origin master
+popd
