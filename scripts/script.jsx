@@ -1,9 +1,8 @@
 window.onload = function () {
-    var model = {
-        properties: []
-    };
-
     var getPropertyValue = require('./get-property-value');
+    var createModelRepo = require('./model');
+    var modelRepository = createModelRepo(localStorage);
+    var model = modelRepository.get();
 
     function addProperty(e) {
         var property = {
@@ -87,6 +86,7 @@ window.onload = function () {
         }
     });
     function draw () {
+        modelRepository.save(model);
         React.render(<Container properties={model.properties} />,
                 document.getElementById("content"));
     }
