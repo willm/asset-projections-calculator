@@ -18,7 +18,7 @@ window.onload = function () {
         render: function () {
             return <div>
                 <h2>Properties</h2>
-                <table>
+                <table className="table table-condensed">
                     <thead>
                         <tr>
                             <th>Property Name</th>
@@ -36,13 +36,32 @@ window.onload = function () {
                     })}
                     </tbody>
                 </table>
-                <form action="#" id="add-property" onSubmit={addProperty}>
-                    <label htmlFor="property-name">Name</label>
-                    <input type="text" name="property-name" id="property-name"/>
-                    <label htmlFor="property-name">Value</label>
-                    <input type="number" name="property-value" id="property-value"/>
-                    <label htmlFor="property-name">Yearly increase (%)</label>
-                    <input type="number" name="property-projected-increase" id="property-projected-increase"/>
+                <form className="form-inline" action="#" id="add-property" onSubmit={addProperty}>
+                    <div className="form-group">
+                        <label className="sr-only" htmlFor="property-name">Property Name</label>
+                        <input className="form-control" type="text"
+                            name="property-name" id="property-name"
+                            placeholder="Property Name"
+                        />
+                    </div>
+                    <div className="form-group">
+                            <label className="sr-only" htmlFor="property-value">Value</label>
+                            <input className="form-control" type="number"
+                                name="property-value" id="property-value"
+                                placeholder="Value"
+                            />
+                    </div>
+                    <div className="form-group">
+                        <div className="input-group">
+                                <label className="sr-only" htmlFor="property-projected-increase">Yearly increase (%)</label>
+                                <input className="form-control" type="number"
+                                    name="property-projected-increase"
+                                    id="property-projected-increase"
+                                    placeholder="Projected Increase"
+                                />
+                                <div className="input-group-addon">%</div>
+                        </div>
+                    </div>
                     <button type="submit">Add</button>
                 </form>
             </div>;
@@ -53,7 +72,7 @@ window.onload = function () {
         render: function () {
             return <div>
                 <h2>Projections</h2>
-                <table>
+                <table className="table table-striped">
                     <thead>
                         <tr>
                             <th></th>
