@@ -13,4 +13,8 @@ deploy:
 	npm install
 	npm test
 	make build
-	./deploy.sh
+	rm -rf /tmp/AssetProjections
+	cd /tmp; git clone git@github.com:willm/AssetProjections.git
+	cp -Lr build /tmp/AssetProjections/
+	cd /tmp/AssetProjections; git add -A; \
+		git commit -m "$$(date)"; git push origin master

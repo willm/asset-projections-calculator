@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "build": "ln -s node_modules/bootstrap/dist/css/bootstrap.min.css static/css/vendor || browserify ./scripts/script.jsx -t babelify --outfile static/js/bundle.js"
+    "build": "make build"
   },
   "author": "",
   "license": "ISC",
