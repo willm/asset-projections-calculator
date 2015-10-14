@@ -42,13 +42,25 @@ describe('model', () => {
             model.save(state);
             assert.deepEqual(storage.model, '{"a":"bc"}');
         });
-        
+
         it('doesn\'t throw if no storage', () => {
             const storage = null;
             const model = createModel(storage);
             const state = { a: 'bc'};
 
             assert.doesNotThrow( () => {model.save(state);});
+        });
+    });
+
+    describe('add property', () => {
+        it('adds a new property', () => {
+            let storage = {
+                model: '{ "properties": [ {} ] }'
+            };
+            const modelRepo = createModel(storage);
+            modelRepo.addProperty({});
+            let model = modelRepo.get();
+            assert.equal(model.properties.length, 2);
         });
     });
 });
