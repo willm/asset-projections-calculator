@@ -62,13 +62,8 @@ window.onload = function () {
                                 <div className="input-group-addon">%</div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <button className="btn" type="submit">
-                        <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-=======
                     <button className="btn btn-default" type="submit">
-                        <span className="glyphicon glyphicon-plus">Add</span>
->>>>>>> 4c57ce88a2877c045ec95bcb03ef1d6491306861
+                        <span className="glyphicon glyphicon-plus" aria-hidden="true">Add</span>
                     </button>
                 </form>
             </div>;

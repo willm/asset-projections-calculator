@@ -3,8 +3,9 @@ build:
 	rm -rf build
 	mkdir build
 	ln -fs $$(readlink -f css) build/css
-	mkdir -p build/css/vendor
-	ln -fs $$(readlink -f node_modules/bootstrap/dist/css/bootstrap.min.css) css/vendor/bootstrap.min.css
+	mkdir -p build/css/vendor/bootstrap/dist
+	cp node_modules/bootstrap/dist/css/bootstrap.min.css css/vendor/bootstrap/dist/bootstrap.min.css
+	cp -r node_modules/bootstrap/fonts/ css/vendor/bootstrap/fonts
 	mkdir -p build/js/vendor
 	ln -fs $$(readlink -f node_modules/react/dist/react.min.js) build/js/vendor/react.min.js
 	ln -fs $$(readlink -f node_modules/jquery/dist/jquery.min.js) build/js/vendor/jquery.min.js
