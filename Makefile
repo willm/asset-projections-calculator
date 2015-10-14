@@ -1,9 +1,11 @@
 .PHONY: build
 build:
 	rm -rf build
+	mkdir build
+	ln -s $$(readlink -f css) build/css
 	mkdir -p build/css/vendor
+	ln -s $$(readlink -f node_modules/bootstrap/dist/css/bootstrap.min.css) css/vendor/bootstrap.min.css
 	mkdir -p build/js/vendor
-	ln -s $$(readlink -f node_modules/bootstrap/dist/css/bootstrap.min.css) build/css/vendor/bootstrap.min.css
 	ln -s $$(readlink -f node_modules/react/dist/react.min.js) build/js/vendor/react.min.js
 	ln -s $$(readlink -f node_modules/jquery/dist/jquery.min.js) build/js/vendor/jquery.min.js
 	ln -s $$(readlink -f index.html) build/index.html
