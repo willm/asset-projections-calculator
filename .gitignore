@@ -2,3 +2,4 @@ static/js/bundle.js
 node_modules
 *.swp
 build
+css/vendor

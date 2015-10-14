@@ -16,7 +16,7 @@ window.onload = function () {
     }
     var Properties = React.createClass({
         render: function () {
-            return <div>
+            return <div className="narrow-table">
                 <h2>Properties</h2>
                 <table className="table table-condensed">
                     <thead>
@@ -62,8 +62,13 @@ window.onload = function () {
                                 <div className="input-group-addon">%</div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <button className="btn" type="submit">
                         <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+=======
+                    <button className="btn btn-default" type="submit">
+                        <span className="glyphicon glyphicon-plus">Add</span>
+>>>>>>> 4c57ce88a2877c045ec95bcb03ef1d6491306861
                     </button>
                 </form>
             </div>;
@@ -100,7 +105,7 @@ window.onload = function () {
 
     var Container = React.createClass({
         render: function () {
-            return <div>
+            return <div id="main-container">
                 <Projections properties={this.props.properties}/>
                 <Properties properties={this.props.properties} />
             </div>
