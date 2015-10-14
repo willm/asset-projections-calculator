@@ -62,7 +62,9 @@ window.onload = function () {
                                 <div className="input-group-addon">%</div>
                         </div>
                     </div>
-                    <button type="submit">Add</button>
+                    <button className="btn" type="submit">
+                        <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
                 </form>
             </div>;
         }
