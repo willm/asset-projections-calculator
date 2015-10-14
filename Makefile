@@ -10,7 +10,7 @@ build:
 	make build-js
 
 build-js:
-	browserify ./scripts/script.jsx -t babelify --outfile build/js/bundle.js
+	node_modules/.bin/browserify ./scripts/script.jsx -t babelify --outfile build/js/bundle.js
 
 deploy:
 	npm install
