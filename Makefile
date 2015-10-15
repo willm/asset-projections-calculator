@@ -25,3 +25,6 @@ deploy:
 	cp -Lr build/* /tmp/AssetProjections/
 	cd /tmp/AssetProjections; git add -A; \
 		git commit -m "$$(date)";
+
+start:
+	cd build; python -m SimpleHTTPServer

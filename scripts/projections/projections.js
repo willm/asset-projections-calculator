@@ -1,4 +1,5 @@
 var getPropertyValue = require('../get-property-value');
+var React = require('react');
 
 module.exports = React.createClass({
     render: function () {
@@ -15,7 +16,7 @@ module.exports = React.createClass({
                 </thead>
                 <tbody>
                     {this.props.properties.map(function (property) {
-                        return <tr>
+                        return <tr key={property.id}>
                             <td>{property.name}</td>
                             <td>{getPropertyValue(property, 1)}</td>
                             <td>{getPropertyValue(property, 2)}</td>
