@@ -55,12 +55,37 @@ describe('model', () => {
     describe('add property', () => {
         it('adds a new property', () => {
             let storage = {
-                model: '{ "properties": [ {} ] }'
+                model: '{ "properties": [ { "id": 1} ] }'
             };
             const modelRepo = createModel(storage);
             modelRepo.addProperty({});
             let model = modelRepo.get();
             assert.equal(model.properties.length, 2);
+            assert.equal(model.properties[1].id, 2);
+        });
+    });
+
+    describe('delete property', () => {
+        it('deletes a new property', () => {
+            let storage = {
+                model: '{ "properties": [ { "id": 1}, {"id": 2} ] }'
+            };
+            const modelRepo = createModel(storage);
+            modelRepo.deleteProperty(1);
+            let model = modelRepo.get();
+            assert.equal(model.properties.length, 1);
+            assert.equal(model.properties[0].id, 2);
+        });
+
+        it('can delete all properties', () => {
+            let storage = {
+                model: '{ "properties": [ { "id": 1}, {"id": 2} ] }'
+            };
+            const modelRepo = createModel(storage);
+            modelRepo.deleteProperty(1);
+            modelRepo.deleteProperty(2);
+            let model = modelRepo.get();
+            assert.equal(model.properties.length, 0);
         });
     });
 });

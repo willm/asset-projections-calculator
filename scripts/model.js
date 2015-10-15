@@ -1,7 +1,6 @@
 'use strict';
 
-function createModel (strg) {
-    var storage = strg || localStorage;
+function createModel (storage) {
     function get() {
         var model = {
             properties: []
@@ -18,7 +17,18 @@ function createModel (strg) {
 
     function addProperty(property) {
         var model = get();
+        property.id = model.properties.length + 1;
         model.properties.push(property);
+        save(model);
+    }
+
+    function deleteProperty (id) {
+        var model = get();
+        model.properties = model
+            .properties
+            .filter(function (p) {
+                return p.id != id;
+            });
         save(model);
     }
 
@@ -29,7 +39,8 @@ function createModel (strg) {
     return {
         get: get,
         save: save,
-        addProperty: addProperty
+        addProperty: addProperty,
+        deleteProperty: deleteProperty
     };
 }
 module.exports = createModel;

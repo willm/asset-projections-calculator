@@ -1,10 +1,18 @@
 var save = require('./save');
+var createRepo = require('../model');
+var repo = createRepo(localStorage);
 
 module.exports = React.createClass({
     onSubmit: function (e) {
         e.preventDefault();
         save(e);
-        this.props.onPropertyAdded();
+        this.props.onPropertiesChanged();
+    },
+    removeProperty: function (e) {
+        console.log(e.target.attributes);
+        var id = e.target.attributes['data-id'].value;
+        repo.deleteProperty(id);
+        this.props.onPropertiesChanged();
     },
     render: function () {
         return <div className="narrow-table">
@@ -23,8 +31,19 @@ module.exports = React.createClass({
                         <td>{property.name}</td>
                         <td>{property.value}</td>
                         <td>{property.increase} %</td>
+                        <td>
+                            <button className="btn btn-default"
+                                type="button"
+                                data-id={property.id}
+                                onClick={this.removeProperty}>
+                                <span className="glyphicon glyphicon-minus"
+                                    aria-hidden="true"
+                                    data-id={property.id}>
+                                </span>
+                            </button>
+                        </td>
                     </tr>;
-                })}
+                }, this)}
                 </tbody>
             </table>
             <form className="form-inline" action="#" id="add-property" onSubmit={this.onSubmit}>
