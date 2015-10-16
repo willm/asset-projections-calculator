@@ -7,7 +7,7 @@ const PropertyForm = require('./property-form');
 
 module.exports = React.createClass({
     getInitialState() {
-        return {showModal: false};
+        return {showModal: false, selectedProperty: {}};
     },
     removeProperty (e) {
         console.log(e.target.attributes);
@@ -16,11 +16,11 @@ module.exports = React.createClass({
         this.props.onPropertiesChanged();
     },
     close() {
-        this.setState({ showModal: false });
+        this.setState(this.getInitialState());
     },
 
     open() {
-        this.setState({ showModal: true });
+        this.setState({ showModal: true, selectedProperty: {value: 99}});
     },
     render() {
         return <div className="narrow-table">
@@ -67,7 +67,7 @@ module.exports = React.createClass({
                     <Modal.Title>Edit Property</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <PropertyForm />
+                    <PropertyForm property={this.state.selectedProperty}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.close}>Close</Button>

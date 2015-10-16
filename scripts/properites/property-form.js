@@ -8,13 +8,22 @@ const PropertyForm = React.createClass({
         this.props.onPropertiesChanged();
     },
 
+    p() {
+        if(this.props.property){
+            console.log(this.props.propery);
+            return this.props.property.value;
+        }
+        return null;
+    },
+
     render() {
         return <form className="form-inline" action="#" id="add-property" onSubmit={this.onSubmit}>
             <div className="form-group">
                 <label className="sr-only" htmlFor="property-name">Property Name</label>
                 <input className="form-control" type="text"
                     name="property-name" id="property-name"
-                    placeholder="Property Name"
+                    placeholder="Property Name" 
+                    defaultValue={this.p()}
                 />
             </div>
             <div className="form-group">
