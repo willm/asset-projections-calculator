@@ -8,10 +8,9 @@ const PropertyForm = React.createClass({
         this.props.onPropertiesChanged();
     },
 
-    p() {
-        if(this.props.property){
-            console.log(this.props.propery);
-            return this.props.property.value;
+    property(attribute) {
+        if(this.props.property && this.props.property[attribute]){
+            return this.props.property[attribute];
         }
         return null;
     },
@@ -22,8 +21,8 @@ const PropertyForm = React.createClass({
                 <label className="sr-only" htmlFor="property-name">Property Name</label>
                 <input className="form-control" type="text"
                     name="property-name" id="property-name"
-                    placeholder="Property Name" 
-                    defaultValue={this.p()}
+                    placeholder="Property Name"
+                    defaultValue={this.property('name')}
                 />
             </div>
             <div className="form-group">
@@ -31,6 +30,7 @@ const PropertyForm = React.createClass({
                     <input className="form-control" type="number"
                         name="property-value" id="property-value"
                         placeholder="Value"
+                        defaultValue={this.property('value')}
                     />
             </div>
             <div className="form-group">
@@ -40,6 +40,7 @@ const PropertyForm = React.createClass({
                             name="property-projected-increase"
                             id="property-projected-increase"
                             placeholder="Projected Increase"
+                            defaultValue={this.property('increase')}
                         />
                         <div className="input-group-addon">%</div>
                 </div>

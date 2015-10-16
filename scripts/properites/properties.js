@@ -19,8 +19,10 @@ module.exports = React.createClass({
         this.setState(this.getInitialState());
     },
 
-    open() {
-        this.setState({ showModal: true, selectedProperty: {value: 99}});
+    open(e) {
+        var id = e.target.attributes['data-id'].value;
+        var property = this.props.properties.filter((x) => x.id == id)[0];
+        this.setState({ showModal: true, selectedProperty: property});
     },
     render() {
         return <div className="narrow-table">
@@ -42,9 +44,11 @@ module.exports = React.createClass({
                         <td>
                             <button className="btn btn-default"
                                 type="button"
+                                data-id={property.id}
                                 onClick={this.open}>
                                 <span className="glyphicon glyphicon-pencil"
-                                    aria-hidden="true">
+                                    aria-hidden="true"
+                                    data-id={property.id}>
                                 </span>
                             </button>
                             <button className="btn btn-default"
