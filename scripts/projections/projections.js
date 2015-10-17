@@ -1,12 +1,13 @@
-var getPropertyValue = require('../get-property-value');
-var React = require('react');
+const getPropertyValue = require('../get-property-value');
+const React = require('react');
+const numberOfYears=10;
 
 module.exports = React.createClass({
     render: function () {
         let years = [<th></th>];
         let assets = [];
         let totals = [];
-        for(let i = 1; i <= 10; i++) {
+        for(let i = 1; i <= numberOfYears; i++) {
             years.push(<th>{2015 + i}</th>);
             totals.push(<td>{getTotal(this.props.properties, i)}</td>);
         }
@@ -42,7 +43,7 @@ function getTotal(properties, year) {
 let ProjectionRow = React.createClass({
     render (){
         let cells = [];
-        for(let i = 1; i <= 10; i++) {
+        for(let i = 1; i <= numberOfYears; i++) {
             cells.push(<td>{getPropertyValue(this.props.property, i)}</td>);
         }
         return <tr key={this.props.property.id}>
