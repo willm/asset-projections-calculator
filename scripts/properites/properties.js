@@ -28,7 +28,7 @@ module.exports = React.createClass({
         if(e.target.attributes['data-id']) {
             id = e.target.attributes['data-id'].value;
         }
-        var property = this.props.properties.filter((x) => x.id == id)[0];
+        let property = this.props.properties.filter((x) => x.id == id)[0];
         this.setState({ showModal: true, selectedProperty: property});
     },
     render() {
