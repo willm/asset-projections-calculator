@@ -1,4 +1,4 @@
-const createRepo = require('../model');
+const createRepo = require('../model-repository');
 const repo = createRepo(localStorage);
 const React = require('react');
 const Modal = require('react-bootstrap/lib/Modal');
@@ -6,11 +6,15 @@ const Button = require('react-bootstrap/lib/Button');
 const PropertyForm = require('./property-form');
 
 module.exports = React.createClass({
+    componentDidMount () {
+        $(window).on('properties-changed', () => {
+            this.setState(this.getInitialState());
+        });
+    },
     getInitialState() {
         return {showModal: false, selectedProperty: {}};
     },
     removeProperty (e) {
-        console.log(e.target.attributes);
         var id = e.target.attributes['data-id'].value;
         repo.deleteProperty(id);
         this.props.onPropertiesChanged();
@@ -20,13 +24,23 @@ module.exports = React.createClass({
     },
 
     open(e) {
-        var id = e.target.attributes['data-id'].value;
+        let id;
+        if(e.target.attributes['data-id']) {
+            id = e.target.attributes['data-id'].value;
+        }
         var property = this.props.properties.filter((x) => x.id == id)[0];
         this.setState({ showModal: true, selectedProperty: property});
     },
     render() {
         return <div className="narrow-table">
             <h2>Properties</h2>
+            <button className="btn btn-default"
+                type="button"
+                onClick={this.open}>
+                <span onClick={this.open} className="glyphicon glyphicon-plus"
+                    aria-hidden="true">Add
+                </span>
+            </button>
             <table className="table table-condensed">
                 <thead>
                     <tr>
@@ -65,16 +79,16 @@ module.exports = React.createClass({
                 }, this)}
                 </tbody>
             </table>
-            <PropertyForm onPropertiesChanged={this.props.onPropertiesChanged} />
             <Modal show={this.state.showModal} onHide={this.close}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Property</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <PropertyForm property={this.state.selectedProperty}/>
+                    <PropertyForm property={this.state.selectedProperty}
+                    onPropertiesChanged={this.props.onPropertiesChanged}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.close}>Close</Button>
+                    <Button onClick={this.close}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
         </div>;

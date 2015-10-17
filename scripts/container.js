@@ -1,6 +1,6 @@
 var Projections = require('./projections/projections');
 var Properties = require('./properites/properties');
-var createRepo = require('./model');
+var createRepo = require('./model-repository');
 var repo = createRepo(localStorage);
 var React = require('react');
 

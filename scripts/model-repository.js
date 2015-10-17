@@ -1,8 +1,24 @@
 'use strict';
 
+function findProperty(model, id) {
+    let found = model.properties.filter(function (p) {
+        return p.id === id;
+    });
+    if(found.length) {
+        return found[0];
+    }
+    return null;
+}
+
+function remove(properties, id) {
+    return properties.filter(function (p) {
+        return p.id != id;
+    });
+}
+
 function createModel (storage) {
     function get() {
-        var model = {
+        let model = {
             properties: []
         };
         if (storage && storage.model) {
@@ -16,19 +32,21 @@ function createModel (storage) {
     }
 
     function addProperty(property) {
-        var model = get();
-        property.id = model.properties.length + 1;
+        const id = property.id;
+        let model = get();
+        if(id && findProperty(model, id)) {
+            model.properties = remove(model.properties, id);
+        } else {
+            property.id = model.properties.length + 1;
+        }
         model.properties.push(property);
         save(model);
     }
 
+
     function deleteProperty (id) {
-        var model = get();
-        model.properties = model
-            .properties
-            .filter(function (p) {
-                return p.id != id;
-            });
+        let model = get();
+        model.properties = remove(model.properties, id);
         save(model);
     }
 
@@ -42,5 +60,6 @@ function createModel (storage) {
         addProperty: addProperty,
         deleteProperty: deleteProperty
     };
+
 }
 module.exports = createModel;

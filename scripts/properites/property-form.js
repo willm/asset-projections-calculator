@@ -5,6 +5,7 @@ const PropertyForm = React.createClass({
     onSubmit(e) {
         e.preventDefault();
         save(e);
+        $('#add-property').trigger('properties-changed');
         this.props.onPropertiesChanged();
     },
 
@@ -17,6 +18,10 @@ const PropertyForm = React.createClass({
 
     render() {
         return <form className="form-inline" action="#" id="add-property" onSubmit={this.onSubmit}>
+            <input className="form-control hide" type="text"
+                name="property-id" id="property-id"
+                value={this.property('id')}
+            />
             <div className="form-group">
                 <label className="sr-only" htmlFor="property-name">Property Name</label>
                 <input className="form-control" type="text"
@@ -46,7 +51,7 @@ const PropertyForm = React.createClass({
                 </div>
             </div>
             <button className="btn btn-default" type="submit">
-                <span className="glyphicon glyphicon-plus" aria-hidden="true">Add</span>
+                <span className="glyphicon glyphicon-plus" aria-hidden="true">Save</span>
             </button>
         </form>;
     }

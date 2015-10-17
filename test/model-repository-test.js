@@ -1,5 +1,5 @@
 'use strict';
-let createModel = require('../scripts/model.js');
+const createModel = require('../scripts/model-repository');
 const assert = require('assert');
 
 describe('model', () => {
@@ -50,6 +50,7 @@ describe('model', () => {
 
             assert.doesNotThrow( () => {model.save(state);});
         });
+
     });
 
     describe('add property', () => {
@@ -62,6 +63,15 @@ describe('model', () => {
             let model = modelRepo.get();
             assert.equal(model.properties.length, 2);
             assert.equal(model.properties[1].id, 2);
+        });
+
+        it('updates when property already exists', () => {
+            const storage = { model: '{"properties": [{"id": 1, "value":100}]}'};
+            const model = createModel(storage);
+            const state = { value: 500, id: 1};
+
+            model.addProperty(state);
+            assert.deepEqual(storage.model, '{"properties":[{"value":500,"id":1}]}');
         });
     });
 
