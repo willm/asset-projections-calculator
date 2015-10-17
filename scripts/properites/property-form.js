@@ -6,7 +6,6 @@ const PropertyForm = React.createClass({
         e.preventDefault();
         save(e);
         $('#add-property').trigger('properties-changed');
-        this.props.onPropertiesChanged();
     },
 
     property(attribute) {

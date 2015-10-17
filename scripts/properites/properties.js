@@ -17,7 +17,7 @@ module.exports = React.createClass({
     removeProperty (e) {
         var id = e.target.attributes['data-id'].value;
         repo.deleteProperty(id);
-        this.props.onPropertiesChanged();
+        $(window).trigger('properties-changed');
     },
     close() {
         this.setState(this.getInitialState());
@@ -84,8 +84,7 @@ module.exports = React.createClass({
                     <Modal.Title>Edit Property</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <PropertyForm property={this.state.selectedProperty}
-                    onPropertiesChanged={this.props.onPropertiesChanged}/>
+                    <PropertyForm property={this.state.selectedProperty} />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.close}>Cancel</Button>

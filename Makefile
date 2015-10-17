@@ -24,7 +24,7 @@ deploy:
 	cd /tmp; git clone git@github.com:willm/AssetProjections.git; rm -rf AssetProjections/*
 	cp -Lr build/* /tmp/AssetProjections/
 	cd /tmp/AssetProjections; git add -A; \
-		git commit -m "$$(date)";
+		git commit -m "$$(date)"; git push origin master;
 
 start:
 	cd build; python -m SimpleHTTPServer
