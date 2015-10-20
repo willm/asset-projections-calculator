@@ -1,7 +1,7 @@
 'use strict';
 
-function findProperty(model, id) {
-    let found = model.properties.filter(function (p) {
+function findAsset(model, id) {
+    let found = model.assets.filter(function (p) {
         return p.id === id;
     });
     if(found.length) {
@@ -10,8 +10,8 @@ function findProperty(model, id) {
     return null;
 }
 
-function remove(properties, id) {
-    return properties.filter(function (p) {
+function remove(assets, id) {
+    return assets.filter(function (p) {
         return p.id != id;
     });
 }
@@ -19,7 +19,7 @@ function remove(properties, id) {
 function createModel (storage) {
     function get() {
         let model = {
-            properties: []
+            assets: []
         };
         if (storage && storage.model) {
             try {
@@ -31,22 +31,22 @@ function createModel (storage) {
         return model;
     }
 
-    function addProperty(property) {
-        const id = property.id;
+    function addAsset(asset) {
+        const id = asset.id;
         let model = get();
-        if(id && findProperty(model, id)) {
-            model.properties = remove(model.properties, id);
+        if(id && findAsset(model, id)) {
+            model.assets = remove(model.assets, id);
         } else {
-            property.id = model.properties.length + 1;
+            asset.id = model.assets.length + 1;
         }
-        model.properties.push(property);
+        model.assets.push(asset);
         save(model);
     }
 
 
-    function deleteProperty (id) {
+    function deleteAsset (id) {
         let model = get();
-        model.properties = remove(model.properties, id);
+        model.assets = remove(model.assets, id);
         save(model);
     }
 
@@ -57,8 +57,8 @@ function createModel (storage) {
     return {
         get: get,
         save: save,
-        addProperty: addProperty,
-        deleteProperty: deleteProperty
+        addAsset: addAsset,
+        deleteAsset: deleteAsset
     };
 
 }

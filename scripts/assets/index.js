@@ -3,21 +3,21 @@ const repo = createRepo(localStorage);
 const React = require('react');
 const Modal = require('react-bootstrap/lib/Modal');
 const Button = require('react-bootstrap/lib/Button');
-const PropertyForm = require('./property-form');
+const AssetForm = require('./asset-form');
 
 module.exports = React.createClass({
     componentDidMount () {
-        $(window).on('properties-changed', () => {
+        $(window).on('assets-changed', () => {
             this.setState(this.getInitialState());
         });
     },
     getInitialState() {
-        return {showModal: false, selectedProperty: {}};
+        return {showModal: false, selectedAsset: {}};
     },
-    removeProperty (e) {
+    removeAsset (e) {
         var id = e.target.attributes['data-id'].value;
-        repo.deleteProperty(id);
-        $(window).trigger('properties-changed');
+        repo.deleteAsset(id);
+        $(window).trigger('assets-changed');
     },
     close() {
         this.setState(this.getInitialState());
@@ -28,12 +28,12 @@ module.exports = React.createClass({
         if(e.target.attributes['data-id']) {
             id = e.target.attributes['data-id'].value;
         }
-        let property = this.props.properties.filter((x) => x.id == id)[0];
-        this.setState({ showModal: true, selectedProperty: property});
+        let asset = this.props.assets.filter((x) => x.id == id)[0];
+        this.setState({ showModal: true, selectedAsset: asset});
     },
     render() {
         return <div className="narrow-table">
-            <h2>Properties</h2>
+            <h2>Assets</h2>
             <button className="btn btn-default"
                 type="button"
                 onClick={this.open}>
@@ -44,34 +44,34 @@ module.exports = React.createClass({
             <table className="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Property Name</th>
-                        <th>Property Value</th>
+                        <th>Asset Name</th>
+                        <th>Asset Value</th>
                         <th>Projected Increase</th>
                     </tr>
                 </thead>
                 <tbody>
-                {this.props.properties.map(function (property) {
-                    return <tr key={property.id}>
-                        <td>{property.name}</td>
-                        <td>{property.value}</td>
-                        <td>{property.increase} %</td>
+                {this.props.assets.map(function (asset) {
+                    return <tr key={asset.id}>
+                        <td>{asset.name}</td>
+                        <td>{asset.value}</td>
+                        <td>{asset.increase} %</td>
                         <td>
                             <button className="btn btn-default"
                                 type="button"
-                                data-id={property.id}
+                                data-id={asset.id}
                                 onClick={this.open}>
                                 <span className="glyphicon glyphicon-pencil"
                                     aria-hidden="true"
-                                    data-id={property.id}>
+                                    data-id={asset.id}>
                                 </span>
                             </button>
                             <button className="btn btn-default"
                                 type="button"
-                                data-id={property.id}
-                                onClick={this.removeProperty}>
+                                data-id={asset.id}
+                                onClick={this.removeAsset}>
                                 <span className="glyphicon glyphicon-minus"
                                     aria-hidden="true"
-                                    data-id={property.id}>
+                                    data-id={asset.id}>
                                 </span>
                             </button>
                         </td>
@@ -81,14 +81,11 @@ module.exports = React.createClass({
             </table>
             <Modal show={this.state.showModal} onHide={this.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Property</Modal.Title>
+                    <Modal.Title>Edit Asset</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <PropertyForm property={this.state.selectedProperty} />
+                    <AssetForm asset={this.state.selectedAsset} />
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.close}>Cancel</Button>
-                </Modal.Footer>
             </Modal>
         </div>;
     }

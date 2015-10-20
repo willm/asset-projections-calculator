@@ -1,5 +1,5 @@
 var Projections = require('./projections/projections');
-var Properties = require('./properites/properties');
+var Assets = require('./assets');
 var createRepo = require('./model-repository');
 var repo = createRepo(localStorage);
 var React = require('react');
@@ -9,14 +9,14 @@ module.exports = React.createClass({
             return repo.get();
         },
         componentDidMount () {
-            $(window).on('properties-changed', () => {
+            $(window).on('assets-changed', () => {
                 this.setState(this.getInitialState());
             });
         },
         render () {
             return <div id="main-container">
-                <Projections properties={this.state.properties}/>
-                <Properties properties={this.state.properties}/>
+                <Projections assets={this.state.assets}/>
+                <Assets assets={this.state.assets}/>
             </div>
         }
     });

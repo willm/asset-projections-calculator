@@ -4,6 +4,6 @@ var parse = require('./parse');
 var draw = require('../draw');
 
 module.exports = function save(e){
-    var property = parse(e);
-    repo.addProperty(property);
+    var asset = parse(e);
+    repo.addAsset(asset);
 };

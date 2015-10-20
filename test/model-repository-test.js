@@ -21,7 +21,7 @@ describe('model', () => {
 
             const model = createModel(storage);
             const actual = model.get();
-            assert.deepEqual(actual, { properties: []});
+            assert.deepEqual(actual, { assets: []});
         });
 
         it('doesn\'t throw if no storage', () => {
@@ -29,7 +29,7 @@ describe('model', () => {
 
             const model = createModel(storage);
             const actual = model.get();
-            assert.deepEqual(actual, { properties: []});
+            assert.deepEqual(actual, { assets: []});
         });
     });
 
@@ -53,49 +53,49 @@ describe('model', () => {
 
     });
 
-    describe('add property', () => {
-        it('adds a new property', () => {
+    describe('add asset', () => {
+        it('adds a new asset', () => {
             let storage = {
-                model: '{ "properties": [ { "id": 1} ] }'
+                model: '{ "assets": [ { "id": 1} ] }'
             };
             const modelRepo = createModel(storage);
-            modelRepo.addProperty({});
+            modelRepo.addAsset({});
             let model = modelRepo.get();
-            assert.equal(model.properties.length, 2);
-            assert.equal(model.properties[1].id, 2);
+            assert.equal(model.assets.length, 2);
+            assert.equal(model.assets[1].id, 2);
         });
 
-        it('updates when property already exists', () => {
-            const storage = { model: '{"properties": [{"id": 1, "value":100}]}'};
+        it('updates when asset already exists', () => {
+            const storage = { model: '{"assets": [{"id": 1, "value":100}]}'};
             const model = createModel(storage);
             const state = { value: 500, id: 1};
 
-            model.addProperty(state);
-            assert.deepEqual(storage.model, '{"properties":[{"value":500,"id":1}]}');
+            model.addAsset(state);
+            assert.deepEqual(storage.model, '{"assets":[{"value":500,"id":1}]}');
         });
     });
 
-    describe('delete property', () => {
-        it('deletes a new property', () => {
+    describe('delete asset', () => {
+        it('deletes a new asset', () => {
             let storage = {
-                model: '{ "properties": [ { "id": 1}, {"id": 2} ] }'
+                model: '{ "assets": [ { "id": 1}, {"id": 2} ] }'
             };
             const modelRepo = createModel(storage);
-            modelRepo.deleteProperty(1);
+            modelRepo.deleteAsset(1);
             let model = modelRepo.get();
-            assert.equal(model.properties.length, 1);
-            assert.equal(model.properties[0].id, 2);
+            assert.equal(model.assets.length, 1);
+            assert.equal(model.assets[0].id, 2);
         });
 
-        it('can delete all properties', () => {
+        it('can delete all assets', () => {
             let storage = {
-                model: '{ "properties": [ { "id": 1}, {"id": 2} ] }'
+                model: '{ "assets": [ { "id": 1}, {"id": 2} ] }'
             };
             const modelRepo = createModel(storage);
-            modelRepo.deleteProperty(1);
-            modelRepo.deleteProperty(2);
+            modelRepo.deleteAsset(1);
+            modelRepo.deleteAsset(2);
             let model = modelRepo.get();
-            assert.equal(model.properties.length, 0);
+            assert.equal(model.assets.length, 0);
         });
     });
 });
