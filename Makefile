@@ -15,6 +15,7 @@ build:
 
 build-js:
 	node_modules/.bin/browserify ./scripts/script.jsx -t babelify --outfile build/js/bundle.js
+	node_modules/.bin/uglifyjs build/js/bundle.js > build/js/bundle.min.js
 
 deploy:
 	npm install

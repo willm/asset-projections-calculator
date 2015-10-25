@@ -1,6 +1,6 @@
 const React = require('react');
 const save = require('./save');
-const DateTimeField = require('react-bootstrap-datetimepicker');
+const DateTime = require('react-bootstrap-datetimepicker');
 const AssetForm = React.createClass({
 
     onSubmit(e) {
@@ -23,7 +23,7 @@ const AssetForm = React.createClass({
                 value={this.asset('id')}
             />
             <div className="form-group">
-                <select className="form-control">
+                <select className="form-control" name="asset-type" id="asset-type">
                     <option>Asset</option>
                     <option>Cash</option>
                     <option>Securities</option>
@@ -31,7 +31,7 @@ const AssetForm = React.createClass({
                 </select>
             </div>
             <div className="form-group">
-                <DateTimeField />
+                <DateTime inputProps={{id: "asset-purchase-date", name:"asset-purchase-date"}}/>
             </div>
             <div className="form-group">
                 <label className="sr-only" htmlFor="asset-name">Asset Name</label>

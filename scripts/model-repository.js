@@ -37,7 +37,7 @@ function createModel (storage) {
         if(id && findAsset(model, id)) {
             model.assets = remove(model.assets, id);
         } else {
-            asset.id = model.assets.length + 1;
+            asset.id = Date.now();
         }
         model.assets.push(asset);
         save(model);
