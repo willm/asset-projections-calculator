@@ -6,17 +6,27 @@ describe('model', () => {
     describe('get', () => {
         it('gets the model from localStorage', () => {
             const storage = {
-                model: '{}'
+                model: '{"assets": []}'
             };
 
             const model = createModel(storage);
             const actual = model.get();
-            assert.deepEqual(actual, {});
+            assert.deepEqual(actual, {assets: []});
         });
 
         it('doesn\'t throw if unparsable model sotred', () => {
             const storage = {
                 model: '{5^'
+            };
+
+            const model = createModel(storage);
+            const actual = model.get();
+            assert.deepEqual(actual, { assets: []});
+        });
+
+        it('returns a new model if no assets property exists', () => {
+            const storage = {
+                model: '{"property": "some-old-schema"}'
             };
 
             const model = createModel(storage);
@@ -62,7 +72,8 @@ describe('model', () => {
             modelRepo.addAsset({});
             let model = modelRepo.get();
             assert.equal(model.assets.length, 2);
-            assert.equal(model.assets[1].id, 2);
+            assert.notEqual(model.assets[1].id, 1);
+            assert.notEqual(model.assets[1].id, undefined);
         });
 
         it('updates when asset already exists', () => {

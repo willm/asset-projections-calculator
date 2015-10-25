@@ -23,7 +23,11 @@ function createModel (storage) {
         };
         if (storage && storage.model) {
             try {
-                return JSON.parse(storage.model);
+                var parsed = JSON.parse(storage.model);
+                if (parsed.assets !== undefined) {
+                    return parsed;
+                }
+                return model;
             } catch (error) {
                 return model;
             }
