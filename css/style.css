@@ -4,3 +4,16 @@
 .hide {
     display: none;
 }
+.table > tbody > tr > td.pad-top,
+.table > tbody > tr > th.pad-top,
+.table > tbody > tr.pad-top > td,
+.table > tbody > tr.pad-top > th {
+  padding-top: 50px;
+}
+
+.table > tbody > tr > td.no-stripe,
+.table > tbody > tr > th.no-stripe,
+.table > tbody > tr.no-stripe > td,
+.table > tbody > tr.no-stripe > th {
+  background-color: #fff;
+}

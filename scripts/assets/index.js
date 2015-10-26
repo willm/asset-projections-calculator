@@ -4,6 +4,7 @@ const React = require('react');
 const Modal = require('react-bootstrap/lib/Modal');
 const Button = require('react-bootstrap/lib/Button');
 const AssetForm = require('./asset-form');
+const types = require('./types');
 
 module.exports = React.createClass({
     componentDidMount () {

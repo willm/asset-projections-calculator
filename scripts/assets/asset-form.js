@@ -1,6 +1,7 @@
 const React = require('react');
 const save = require('./save');
 const DateTime = require('react-bootstrap-datetimepicker');
+const types = require('./types');
 const AssetForm = React.createClass({
 
     onSubmit(e) {
@@ -17,17 +18,19 @@ const AssetForm = React.createClass({
     },
 
     render() {
+        var typeOptions = Object.keys(types).map((t) => {
+            return <option key={t}>{types[t]}</option>;
+        });
         return <form action="#" id="add-asset" onSubmit={this.onSubmit}>
             <input className="form-control hide" type="text"
                 name="asset-id" id="asset-id"
                 value={this.asset('id')}
             />
             <div className="form-group">
-                <select className="form-control" name="asset-type" id="asset-type">
-                    <option>Asset</option>
-                    <option>Cash</option>
-                    <option>Securities</option>
-                    <option>Assurance</option>
+                <select className="form-control"
+                    name="asset-type"
+                    id="asset-type">
+                    {typeOptions}
                 </select>
             </div>
             <div className="form-group">
