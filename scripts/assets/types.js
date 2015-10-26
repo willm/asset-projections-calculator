@@ -1,5 +1,5 @@
 module.exports = {
-    ASSET: 'Asset',
+    PROPERTY: 'Property',
     CASH: 'Cash',
     SECURITIES: 'Securities',
     ASSURANCE: 'Assurance'

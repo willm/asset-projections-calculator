@@ -33,7 +33,6 @@ let ProjectionRow = React.createClass({
 module.exports = React.createClass({
     render: function () {
         let years = [<th key={0}></th>];
-        let assets = [];
         for(let year = nextYear; year <= maxProjectionYear; year++) {
             years.push(<th key={year}>{year}</th>);
         }
@@ -63,7 +62,8 @@ module.exports = React.createClass({
                 </thead>
                 <tbody>
                     {rows}
-                    <ProjectionRow key={"total"} className="warning pad-top"
+                    <tr className="pad-top no-stripe"><td colSpan={numberOfYears + 2}><h4>Total</h4></td></tr>
+                    <ProjectionRow key={"total"} className="warning"
                         name={'Total'}
                         getCellData={cellsForTotal.bind(null, this.props.assets)} />
                 </tbody>

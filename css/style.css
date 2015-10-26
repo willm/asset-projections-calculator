@@ -8,7 +8,7 @@
 .table > tbody > tr > th.pad-top,
 .table > tbody > tr.pad-top > td,
 .table > tbody > tr.pad-top > th {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .table > tbody > tr > td.no-stripe,

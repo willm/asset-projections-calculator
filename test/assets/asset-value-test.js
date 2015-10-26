@@ -61,7 +61,7 @@ describe('asset value', () => {
                 value: 100,
                 increase: 1,
                 purchaseDate: '10/25/15 8:57 AM',
-                type: types.ASSET
+                type: types.PROPERTY
             }];
 
             let total = assetValue.getTotal(assets, 2016, types.CASH);
