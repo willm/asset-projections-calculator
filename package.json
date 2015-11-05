@@ -22,6 +22,7 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "jquery": "^2.1.4",
+    "lodash.forin": "^3.0.2",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
     "react-bootstrap-datetimepicker": "0.0.21"

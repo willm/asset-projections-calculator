@@ -1,58 +1,46 @@
+'use strict';
 const assetValue = require('../asset-value');
 const React = require('react');
 let nextYear = new Date().getFullYear() + 1;
 const numberOfYears = 10;
 const maxProjectionYear=nextYear + numberOfYears;
-
-function cellsForAsset (asset) {
-    let cells = [];
-    for(let year = nextYear; year <= maxProjectionYear; year++) {
-        cells.push(<td key={year}>{assetValue.getAssetValue(asset, year)}</td>);
-    }
-    return cells;
-}
-
-function cellsForTotal (asset, type) {
-    let cells = [];
-    for(let year = nextYear; year <= maxProjectionYear; year++) {
-        cells.push(<td key={year}>{assetValue.getTotal(asset, year, type)}</td>);
-    }
-    return cells;
-}
-
-let ProjectionRow = React.createClass({
-    render (){
-        let cells = this.props.getCellData();
-        return <tr key={this.props.key} className={this.props.className}>
-            <td>{this.props.name}</td>
-            {cells}
-        </tr>;
-    }
-});
+const mapper = require('./mapper');
 
 module.exports = React.createClass({
     render: function () {
+        const model = mapper(this.props.assets);
         let years = [<th key={0}></th>];
-        for(let year = nextYear; year <= maxProjectionYear; year++) {
-            years.push(<th key={year}>{year}</th>);
-        }
+        years = years.concat(model.years.map((y) => {
+            return <th key={y}>{y}</th>;
+        }));
 
-        const assetsByType = this.props.assets.reduce((groups, asset) => {
-            if (!groups[asset.type]) {
-                groups[asset.type] = [<tr className="pad-top no-stripe"><td colSpan={numberOfYears + 2}><h4>{asset.type}</h4></td></tr>];
-            }
-            groups[asset.type].push(<ProjectionRow key={asset.id} getCellData={cellsForAsset.bind(null, asset)} name={asset.name}/>);
-            return groups;
-        }, {});
-        let rows = [];
-        for (let type in assetsByType) {
-            let assetsForType = assetsByType[type];
-            let subtotal = <ProjectionRow key={"subtotal-" + type} className="warning"
-                name={'Subtotal'}
-                getCellData={cellsForTotal.bind(null, this.props.assets, type)} />
-            assetsForType.push(subtotal);
-            rows = rows.concat(assetsForType);
-        }
+        let x = model.projections.reduce((types, typeGroup) => {
+            types.push(<tr key={typeGroup.type} className="pad-top no-stripe">
+                <td colSpan={model.years.length + 2}>
+                    <h4>{typeGroup.type}</h4>
+                </td>
+            </tr>);
+            var ts = typeGroup.assets.map((a) => {
+                return <tr key={a.id}>
+                    <td>{a.name}</td>
+                    {a.values.map((v) => {return <td key={a.name + '-' + v}>{v}</td>;})}
+                </tr>;
+            });
+            types = types.concat(ts);
+            types.push(<tr key={`subtotal-${typeGroup.type}`} className={'warning'}>
+                <td>{'Subtotal'}</td>
+                {typeGroup.subtotals.map((t, i) => {return <td key={`subtotal-${typeGroup.type}-${i}` }>{t}</td>;})}
+            </tr>);
+            return types;
+        }, []);
+
+        const totals = model.totals.map((t, i) => {
+            return <td key={`total-${i}`}>{t}</td>;
+        });
+        totals.unshift(<td key={'total-title'}>Total</td>);
+        const totalRow = <tr key={'total'} className={'warning'}>
+            {totals}
+        </tr>;
 
         return <div>
             <h2>Projections</h2>
@@ -61,14 +49,13 @@ module.exports = React.createClass({
                     <tr>{years}</tr>
                 </thead>
                 <tbody>
-                    {rows}
-                    <tr className="pad-top no-stripe"><td colSpan={numberOfYears + 2}><h4>Total</h4></td></tr>
-                    <ProjectionRow key={"total"} className="warning"
-                        name={'Total'}
-                        getCellData={cellsForTotal.bind(null, this.props.assets)} />
+                    {x}
+                    <tr className="pad-top no-stripe">
+                        <td colSpan={numberOfYears + 2}><h4>Total</h4></td>
+                    </tr>
+                    {totalRow}
                 </tbody>
             </table>
         </div>;
     }
 });
-

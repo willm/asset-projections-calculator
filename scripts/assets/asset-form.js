@@ -19,7 +19,7 @@ const AssetForm = React.createClass({
 
     render() {
         var typeOptions = Object.keys(types).map((t) => {
-            return <option key={t}>{types[t]}</option>;
+            return <option key={types[t].name}>{types[t].name}</option>;
         });
         return <form action="#" id="add-asset" onSubmit={this.onSubmit}>
             <input className="form-control hide" type="text"
@@ -69,6 +69,5 @@ const AssetForm = React.createClass({
             </button>
         </form>;
     }
-
 });
 module.exports = AssetForm;

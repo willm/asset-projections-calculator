@@ -1,28 +1,8 @@
-var projections = {
-    years: [
-        2000, 2001, 2002
-    ],
-    projections: [
-        {
-            type: "Property",
-            subtotals: [
-                300, 301, 303
-            ],
-            liquidity: 1
-        },{
-            type: "Cash",
-            subtotals: [
-                300, 301, 303
-            ],
-            liquidity: 2
-        }
-    ]
-};
-
 const numberOfYears = 10;
 const nextYear = new Date().getFullYear() + 1;
 const maxProjectionYear = nextYear + numberOfYears;
 const assetValue = require('../../scripts/asset-value');
+const forIn = require('lodash.forin');
 
 function getTotals (assets, type) {
     let totals = [];
@@ -31,7 +11,14 @@ function getTotals (assets, type) {
     }
     return totals;
 }
-function map (assets) {
+function getAssetValues (asset) {
+    let values = [];
+    for(let year = nextYear; year <= maxProjectionYear; year++) {
+        values.push(assetValue.getAssetValue(asset, year));
+    }
+    return values;
+}
+function mapProjections (assets) {
     let years = [];
     for(let year = nextYear; year <= maxProjectionYear; year++) {
         years.push(year);
@@ -40,19 +27,29 @@ function map (assets) {
         if (!groups[asset.type.name]) {
             groups[asset.type.name] = { type: asset.type.name, assets: [] };
         }
+        asset.values = getAssetValues(asset);
         groups[asset.type.name].assets.push(asset);
         return groups;
     }, {});
+
     let projections = [];
-    for (let type in assetsByType) {
-        let assetsForType = assetsByType[type];
-        let subtotals = getTotals(assetsForType.assets, type.name);
-        projections.push({type: type, subtotals: subtotals});
+    forIn(assetsByType, (value, key) => {
+        value.subtotals = getTotals(value.assets, value.type);
+        projections.push(value);
+    });
+    /*
+    let projections = [];
+    for (let assetType in assetsByType) {
+        let assetsForType = assetsByType[assetType];
+        assetType.subtotals = getTotals(assetsForType.assets, assetType.name);
+        projections.push(assetType);
     }
+    */
     return {
         years: years,
-        projections: projections
+        projections: projections,
+        totals: getTotals(assets)
     };
 }
 
-module.exports = map;
+module.exports = mapProjections;

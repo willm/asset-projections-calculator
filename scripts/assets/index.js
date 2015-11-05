@@ -56,7 +56,7 @@ module.exports = React.createClass({
                 {this.props.assets.map(function (asset) {
                     return <tr key={asset.id}>
                         <td>{asset.name}</td>
-                        <td>{asset.type}</td>
+                        <td>{asset.type.name}</td>
                         <td>{asset.purchaseDate}</td>
                         <td>{asset.value}</td>
                         <td>{asset.increase} %</td>

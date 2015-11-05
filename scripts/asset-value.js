@@ -13,9 +13,9 @@ function getAssetValue (asset, year) {
 }
 
 function getTotal(assets, year, type) {
-    if (typeof type === 'string') {
+    if (type && typeof type.name === 'string') {
         assets = assets.filter((a) => {
-            return a.type === type;
+            return a.type.name === type.name;
         });
     }
     return assets.reduce((total, asset) => {
@@ -27,4 +27,3 @@ module.exports = {
     getAssetValue: getAssetValue,
     getTotal: getTotal
 };
-

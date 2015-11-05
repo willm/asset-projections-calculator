@@ -27,6 +27,7 @@ describe('Projection mapper', () => {
 
         assert.deepEqual(mapped.years, years);
     });
+
     it('calculates subtotals for all types of assets', () => {
         const subtotals = [101000, 102010, 103030, 104060, 105101,
           106152, 107214, 108286, 109369, 110462, 111567];
@@ -34,5 +35,22 @@ describe('Projection mapper', () => {
         let properties = mapped.projections.filter(
             (x) => {return x.type === 'Property';})[0];
         assert.deepEqual(properties.subtotals, subtotals);
+    });
+
+    it('calculates the projections for each asset', () => {
+        const values = [101000, 102010, 103030, 104060, 105101,
+          106152, 107214, 108286, 109369, 110462, 111567];
+        const properties = mapped.projections.filter(
+            (x) => {return x.type === 'Property';})[0];
+        const property = properties.assets[0];
+
+        assert.deepEqual(property.values, values);
+    });
+
+    it('calculates the totals', () => {
+        const totals = [101000, 102010, 103030, 104060, 105101,
+          106152, 107214, 108286, 109369, 110462, 111567];
+
+        assert.deepEqual(mapped.totals, totals);
     });
 });
