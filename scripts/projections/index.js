@@ -1,6 +1,7 @@
 'use strict';
 const React = require('react');
 const mapper = require('./mapper');
+const totalClassName = 'danger';
 
 function getRowForAsset (asset) {
     return <tr key={asset.id}>
@@ -24,7 +25,7 @@ function getTypeHeaderRow (type, colSpan) {
 function getTypeSubtotalRow (typeGroup) {
     return <tr
         key={`subtotal-${typeGroup.type.name}`}
-        className={'warning'}>
+        className={totalClassName}>
             <td>{'Subtotal'}</td>
         {typeGroup.subtotals.map((t, i) => {
             return <td key={`subtotal-${typeGroup.type.name}-${i}` }>
@@ -56,7 +57,7 @@ module.exports = React.createClass({
         totalCells = totalCells.concat(model.totals.map((t, i) => {
             return <td key={`total-${i}`}>{t}</td>;
         }));
-        const totalRow = <tr key={'total'} className={'warning'}>
+        const totalRow = <tr key={'total'} className={totalClassName}>
             {totalCells}
         </tr>;
 
