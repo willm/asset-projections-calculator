@@ -2,7 +2,6 @@ const numberOfYears = 10;
 const nextYear = new Date().getFullYear() + 1;
 const maxProjectionYear = nextYear + numberOfYears;
 const assetValue = require('../../scripts/asset-value');
-const forIn = require('lodash.forin');
 
 function getTotals (assets, type) {
     let totals = [];
@@ -33,18 +32,12 @@ function mapProjections (assets) {
     }, {});
 
     let projections = [];
-    forIn(assetsByType, (value, key) => {
+    for (let key in assetsByType) {
+        let value = assetsByType[key];
         value.subtotals = getTotals(value.assets, value.type);
         projections.push(value);
-    });
-    /*
-    let projections = [];
-    for (let assetType in assetsByType) {
-        let assetsForType = assetsByType[assetType];
-        assetType.subtotals = getTotals(assetsForType.assets, assetType.name);
-        projections.push(assetType);
     }
-    */
+
     return {
         years: years,
         projections: projections,
