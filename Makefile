@@ -22,7 +22,7 @@ deploy:
 	npm test
 	make build
 	rm -rf /tmp/AssetProjections
-	cd /tmp; git clone git@github.com:willm/AssetProjections.git; rm -rf AssetProjections/*
+	cd /tmp; git clone git@github.com:willm/willm.github.io.git AssetProjections; rm -rf AssetProjections/*
 	cp -Lr build/* /tmp/AssetProjections/
 	cd /tmp/AssetProjections; git add -A; \
 		git commit -m "$$(date)"; git push origin master;
