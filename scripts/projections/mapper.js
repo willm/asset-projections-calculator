@@ -24,7 +24,7 @@ function mapProjections (assets) {
     }
     const assetsByType = assets.reduce((groups, asset) => {
         if (!groups[asset.type.name]) {
-            groups[asset.type.name] = { type: asset.type.name, assets: [] };
+            groups[asset.type.name] = { type: asset.type, assets: [] };
         }
         asset.values = getAssetValues(asset);
         groups[asset.type.name].assets.push(asset);
@@ -36,6 +36,16 @@ function mapProjections (assets) {
         let value = assetsByType[key];
         value.subtotals = getTotals(value.assets, value.type);
         projections.push(value);
+    }
+    projections.sort(byLiquidity);
+    function byLiquidity(a, b) {
+        if (a.type.liquidity > b.type.liquidity) {
+            return -1;
+        }
+        if (a.type.liquidity < b.type.liquidity) {
+            return 1;
+        }
+        return 0;
     }
 
     return {

@@ -23,11 +23,11 @@ function getTypeHeaderRow (type, colSpan) {
 
 function getTypeSubtotalRow (typeGroup) {
     return <tr
-        key={`subtotal-${typeGroup.type}`}
+        key={`subtotal-${typeGroup.type.name}`}
         className={'warning'}>
             <td>{'Subtotal'}</td>
         {typeGroup.subtotals.map((t, i) => {
-            return <td key={`subtotal-${typeGroup.type}-${i}` }>
+            return <td key={`subtotal-${typeGroup.type.name}-${i}` }>
                 {t}
             </td>;
         })}
@@ -44,7 +44,7 @@ module.exports = React.createClass({
         }));
 
         let projectionRows = model.projections.reduce((types, typeGroup) => {
-            let headerRow = getTypeHeaderRow(typeGroup.type, numberOfYears + 2);
+            let headerRow = getTypeHeaderRow(typeGroup.type.name, numberOfYears + 2);
             let assetRows = typeGroup.assets.map(getRowForAsset);
             let subtotalRow = getTypeSubtotalRow(typeGroup);
             types = types.concat(headerRow, assetRows, subtotalRow);

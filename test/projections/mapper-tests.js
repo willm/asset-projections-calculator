@@ -1,22 +1,24 @@
 'use strict';
 const assert = require('assert');
 const map = require('../../scripts/projections/mapper');
+const types = require('../../scripts/assets/types');
 
 describe('Projection mapper', () => {
     let assets, mapped;
 
     beforeEach(() => {
-        const assets = [{
-            id: 1,
-            name: 'My house',
-            value: 100000,
-            increase: 1,
-            purchaseDate: new Date('01-01-2015'),
-            type: {
-                name: 'Property',
-                liquidity: 1
-            }
-        }];
+        let asset = (type) => {
+            return {
+                id: 1,
+                name: 'assetName',
+                value: 100000,
+                increase: 1,
+                purchaseDate: new Date('01-01-2015'),
+                type: type
+            };
+        };
+
+        const assets = [asset(types.PROPERTY), asset(types.CASH)];
 
         mapped = map(assets);
     });
@@ -33,7 +35,7 @@ describe('Projection mapper', () => {
           106152, 107214, 108286, 109369, 110462, 111567];
 
         let properties = mapped.projections.filter(
-            (x) => {return x.type === 'Property';})[0];
+            (x) => {return x.type.name === 'Property';})[0];
         assert.deepEqual(properties.subtotals, subtotals);
     });
 
@@ -41,16 +43,21 @@ describe('Projection mapper', () => {
         const values = [101000, 102010, 103030, 104060, 105101,
           106152, 107214, 108286, 109369, 110462, 111567];
         const properties = mapped.projections.filter(
-            (x) => {return x.type === 'Property';})[0];
+            (x) => {return x.type.name === 'Property';})[0];
         const property = properties.assets[0];
 
         assert.deepEqual(property.values, values);
     });
 
     it('calculates the totals', () => {
-        const totals = [101000, 102010, 103030, 104060, 105101,
-          106152, 107214, 108286, 109369, 110462, 111567];
+        const totals = [ 202000, 204020, 206060, 208120, 210202,
+          212304, 214428, 216572, 218738, 220924, 223134 ];
 
         assert.deepEqual(mapped.totals, totals);
+    });
+
+    it('sorts projections by liquidity', () => {
+        assert.equal(mapped.projections[0].type.name, 'Cash');
+        assert.equal(mapped.projections[1].type.name, 'Property');
     });
 });
