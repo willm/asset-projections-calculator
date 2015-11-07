@@ -6,8 +6,8 @@ function getRowForAsset (asset) {
     return <tr key={asset.id}>
         <td>{asset.name}</td>
         {
-            asset.values.map((v) => {
-                return <td key={asset.name + '-' + v}>{v}</td>;
+            asset.values.map((v, i) => {
+                return <td key={asset.name + '-' + i}>{v}</td>;
             })
         }
     </tr>;
