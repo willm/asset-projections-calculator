@@ -1,6 +1,5 @@
 const React = require('react');
 const save = require('./save');
-const DateTime = require('react-bootstrap-datetimepicker');
 const types = require('./types');
 const AssetForm = React.createClass({
 
@@ -27,6 +26,7 @@ const AssetForm = React.createClass({
                 value={this.asset('id')}
             />
             <div className="form-group">
+                <label htmlFor="asset-type">Type</label>
                 <select className="form-control"
                     name="asset-type"
                     id="asset-type">
@@ -34,7 +34,12 @@ const AssetForm = React.createClass({
                 </select>
             </div>
             <div className="form-group">
-                <DateTime inputProps={{id: "asset-purchase-date", name:"asset-purchase-date"}}/>
+                <label htmlFor="asset-purchase-date">Purchase year</label>
+                <input className="form-control"
+                    type="number" min="1000" placeholder="Purchase Year"
+                    id="asset-purchase-date" name="asset-purchase-date"
+                    defaultValue={this.asset('purchaseDate') || new Date().getFullYear()}
+                />
             </div>
             <div className="form-group">
                 <label className="sr-only" htmlFor="asset-name">Asset Name</label>

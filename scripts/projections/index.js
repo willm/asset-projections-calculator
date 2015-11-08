@@ -1,7 +1,7 @@
 'use strict';
 const React = require('react');
 const mapper = require('./mapper');
-const totalClassName = 'danger';
+const totalClassName = 'warning';
 
 function getRowForAsset (asset) {
     return <tr key={asset.id}>
@@ -45,7 +45,8 @@ module.exports = React.createClass({
         }));
 
         let projectionRows = model.projections.reduce((types, typeGroup) => {
-            let headerRow = getTypeHeaderRow(typeGroup.type.name, numberOfYears + 2);
+            let headerRow = getTypeHeaderRow(typeGroup.type.name,
+                numberOfYears + 2);
             let assetRows = typeGroup.assets.map(getRowForAsset);
             let subtotalRow = getTypeSubtotalRow(typeGroup);
             types = types.concat(headerRow, assetRows, subtotalRow);
