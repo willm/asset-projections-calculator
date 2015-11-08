@@ -36,7 +36,7 @@ const AssetForm = React.createClass({
             <div className="form-group">
                 <label htmlFor="asset-purchase-date">Purchase year</label>
                 <input className="form-control"
-                    type="number" min="1000" placeholder="Purchase Year"
+                    type="number" required min="1000" placeholder="Purchase Year"
                     id="asset-purchase-date" name="asset-purchase-date"
                     defaultValue={this.asset('purchaseDate') || new Date().getFullYear()}
                 />
