@@ -15,6 +15,7 @@ module.exports = React.createClass({
         },
         render () {
             return <div id="main-container">
+                <h1>My Private Portfolio Projections</h1>
                 <Projections assets={this.state.assets}/>
                 <Assets assets={this.state.assets}/>
             </div>
