@@ -17,3 +17,8 @@
 .table > tbody > tr.no-stripe > th {
   background-color: #fff;
 }
+
+.right {
+    text-align: right;
+}
+

@@ -5,6 +5,7 @@ const Modal = require('react-bootstrap/lib/Modal');
 const Button = require('react-bootstrap/lib/Button');
 const AssetForm = require('./asset-form');
 const types = require('./types');
+const formatAmount = require('../format-amount');
 
 module.exports = React.createClass({
     componentDidMount () {
@@ -48,8 +49,9 @@ module.exports = React.createClass({
                         <th>Name</th>
                         <th>Type</th>
                         <th>Purchase Date</th>
-                        <th>Value</th>
                         <th>Projected Increase</th>
+                        <th className="right value-col">Value</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,9 +60,9 @@ module.exports = React.createClass({
                         <td>{asset.name}</td>
                         <td>{asset.type.name}</td>
                         <td>{asset.purchaseDate}</td>
-                        <td>{asset.value}</td>
                         <td>{asset.increase} %</td>
-                        <td>
+                        <td className="right value-col" >{formatAmount(asset.value)}</td>
+                        <td className="right">
                             <button className="btn btn-default"
                                 type="button"
                                 data-id={asset.id}

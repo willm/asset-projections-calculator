@@ -31,8 +31,8 @@ describe('Projection mapper', () => {
     });
 
     it('calculates subtotals for all types of assets', () => {
-        const subtotals = [101000, 102010, 103030, 104060, 105101,
-          106152, 107214, 108286, 109369, 110462, 111567];
+        const subtotals = ['101,000', '102,010', '103,030', '104,060', '105,101',
+          '106,152', '107,214', '108,286', '109,369', '110,462', '111,567'];
 
         let properties = mapped.projections.filter(
             (x) => {return x.type.name === 'Property';})[0];
@@ -40,8 +40,8 @@ describe('Projection mapper', () => {
     });
 
     it('calculates the projections for each asset', () => {
-        const values = [101000, 102010, 103030, 104060, 105101,
-          106152, 107214, 108286, 109369, 110462, 111567];
+        const values = ['101,000', '102,010', '103,030', '104,060', '105,101',
+          '106,152', '107,214', '108,286', '109,369', '110,462', '111,567'];
         const properties = mapped.projections.filter(
             (x) => {return x.type.name === 'Property';})[0];
         const property = properties.assets[0];
@@ -50,8 +50,8 @@ describe('Projection mapper', () => {
     });
 
     it('calculates the totals', () => {
-        const totals = [ 202000, 204020, 206060, 208120, 210202,
-          212304, 214428, 216572, 218738, 220924, 223134 ];
+        const totals = [ '202,000', '204,020', '206,060', '208,120', '210,202',
+          '212,304', '214,428', '216,572', '218,738', '220,924', '223,134' ];
 
         assert.deepEqual(mapped.totals, totals);
     });

@@ -8,7 +8,7 @@ function getRowForAsset (asset) {
         <td>{asset.name}</td>
         {
             asset.values.map((v, i) => {
-                return <td key={asset.name + '-' + i}>{v}</td>;
+                return <td className="right" key={asset.name + '-' + i}>{v}</td>;
             })
         }
     </tr>;
@@ -28,7 +28,7 @@ function getTypeSubtotalRow (typeGroup) {
         className={totalClassName}>
             <td>{'Subtotal'}</td>
         {typeGroup.subtotals.map((t, i) => {
-            return <td key={`subtotal-${typeGroup.type.name}-${i}` }>
+            return <td className="right" key={`subtotal-${typeGroup.type.name}-${i}` }>
                 {t}
             </td>;
         })}
@@ -56,7 +56,7 @@ module.exports = React.createClass({
         let totalCells = [];
         totalCells.push(<td key={'total-title'}>Total</td>);
         totalCells = totalCells.concat(model.totals.map((t, i) => {
-            return <td key={`total-${i}`}>{t}</td>;
+            return <td className="right" key={`total-${i}`}>{t}</td>;
         }));
         const totalRow = <tr key={'total'} className={totalClassName}>
             {totalCells}

@@ -2,18 +2,19 @@ const numberOfYears = 10;
 const nextYear = new Date().getFullYear() + 1;
 const maxProjectionYear = nextYear + numberOfYears;
 const assetValue = require('../../scripts/asset-value');
+const formatAmount = require('../format-amount');
 
 function getTotals (assets, type) {
     let totals = [];
     for(let year = nextYear; year <= maxProjectionYear; year++) {
-        totals.push(assetValue.getTotal(assets, year, type));
+        totals.push(formatAmount(assetValue.getTotal(assets, year, type)));
     }
     return totals;
 }
 function getAssetValues (asset) {
     let values = [];
     for(let year = nextYear; year <= maxProjectionYear; year++) {
-        values.push(assetValue.getAssetValue(asset, year));
+        values.push(formatAmount(assetValue.getAssetValue(asset, year)));
     }
     return values;
 }
