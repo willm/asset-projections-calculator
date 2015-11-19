@@ -48,7 +48,7 @@ module.exports = React.createClass({
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
-                        <th>Purchase Date</th>
+                        <th>Valuation Date</th>
                         <th>Projected Increase</th>
                         <th className="right value-col">Value</th>
                         <th></th>
