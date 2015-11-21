@@ -20,11 +20,8 @@ describe('asset form', () => {
         const assetForm = <AssetForm asset={asset}/>;
         renderer.render(assetForm);
         const tree = renderer.getRenderOutput();
-        const options = ShallowTestUtils.findAllWithType(tree, 'option');
+        const select = ShallowTestUtils.findWithType(tree, 'select');
 
-        const selected = options.filter((o) => {
-            return o.props.selected !== undefined;
-        });
-        assert.equal(selected[0].props.children, 'Cash');
+        assert.equal(select.props.defaultValue, 'Cash');
     });
 });

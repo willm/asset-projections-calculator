@@ -9,7 +9,7 @@ const formatAmount = require('../format-amount');
 
 module.exports = React.createClass({
     componentDidMount () {
-        $(window).on('assets-changed', () => {
+        window.addEventListener('assets-changed', () => {
             this.setState(this.getInitialState());
         });
     },
@@ -19,7 +19,7 @@ module.exports = React.createClass({
     removeAsset (e) {
         var id = e.target.attributes['data-id'].value;
         repo.deleteAsset(id);
-        $(window).trigger('assets-changed');
+        window.dispatchEvent(new Event('assets-changed'));
     },
     close() {
         this.setState(this.getInitialState());

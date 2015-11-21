@@ -1,16 +1,16 @@
 const types = require('./types');
 
-module.exports = function parseAsset(e) {
+module.exports = function parseAsset(assetForm) {
     var type = Object.keys(types).filter((x) => {
-            return types[x].name === $('#asset-type').val();
+            return types[x].name === assetForm.assetType.value;
         })[0];
 
     return {
-        id: Number($('#asset-id').val()),
-        name: $('#asset-name').val(),
-        value: $('#asset-value').val(),
-        increase: $('#asset-projected-increase').val(),
-        purchaseDate: $('#asset-purchase-date').val(),
+        id: Number(assetForm.assetId.value),
+        name: assetForm.assetName.value,
+        value: assetForm.assetValue.value,
+        increase: assetForm.assetProjectedIncrease.value,
+        purchaseDate: assetForm.purchaseDate.value,
         type: types[type]
     };
 };

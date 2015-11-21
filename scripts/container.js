@@ -9,7 +9,7 @@ module.exports = React.createClass({
             return repo.get();
         },
         componentDidMount () {
-            $(window).on('assets-changed', () => {
+            window.addEventListener('assets-changed', () => {
                 this.setState(this.getInitialState());
             });
         },

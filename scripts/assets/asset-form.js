@@ -6,8 +6,9 @@ const AssetForm = React.createClass({
 
     onSubmit(e) {
         e.preventDefault();
-        save(e);
-        $('#add-asset').trigger('assets-changed');
+        save(this.refs);
+        const assetChanged = new Event('assets-changed');
+        window.dispatchEvent(assetChanged);
     },
 
     asset(attribute) {
@@ -16,21 +17,21 @@ const AssetForm = React.createClass({
 
     render() {
         var typeOptions = Object.keys(types).map((t, i) => {
-            if (types[t].name === this.asset('type.name')) {
-                return <option selected key={types[t].name}>{types[t].name}</option>;
-            }
-            return <option key={types[t].name}>{types[t].name}</option>;
+            const typeName = types[t].name;
+            return <option key={typeName} value={typeName} >{typeName}</option>;
         });
-        return <form action="#" id="add-asset" onSubmit={this.onSubmit}>
+        return <form ref="assetForm" action="#" id="add-asset" onSubmit={this.onSubmit}>
             <input className="form-control hide" type="text"
-                name="asset-id" id="asset-id"
+                name="asset-id" id="asset-id" ref="assetId" readOnly
                 value={this.asset('id')}
             />
             <div className="form-group">
                 <label htmlFor="asset-type">Type</label>
                 <select className="form-control"
                     name="asset-type"
-                    id="asset-type">
+                    id="asset-type"
+                    defaultValue={this.asset('type.name')}
+                    ref="assetType">
                     {typeOptions}
                 </select>
             </div>
@@ -38,7 +39,7 @@ const AssetForm = React.createClass({
                 <label htmlFor="asset-purchase-date">Purchase year</label>
                 <input className="form-control"
                     type="number" required min="1000" placeholder="Purchase Year"
-                    id="asset-purchase-date" name="asset-purchase-date"
+                    id="asset-purchase-date" name="asset-purchase-date" ref="purchaseDate"
                     defaultValue={this.asset('purchaseDate') || new Date().getFullYear()}
                 />
             </div>
@@ -47,6 +48,7 @@ const AssetForm = React.createClass({
                 <input className="form-control" type="text"
                     name="asset-name" id="asset-name"
                     placeholder="Asset Name"
+                    ref="assetName"
                     defaultValue={this.asset('name')}
                 />
             </div>
@@ -55,6 +57,7 @@ const AssetForm = React.createClass({
                     <input className="form-control" type="number"
                         name="asset-value" id="asset-value"
                         placeholder="Value"
+                        ref="assetValue"
                         defaultValue={this.asset('value')}
                     />
             </div>
@@ -63,6 +66,7 @@ const AssetForm = React.createClass({
                         <label className="sr-only" htmlFor="asset-projected-increase">Yearly increase (%)</label>
                         <input className="form-control" type="number"
                             name="asset-projected-increase"
+                            ref="assetProjectedIncrease"
                             id="asset-projected-increase"
                             placeholder="Projected Increase"
                             defaultValue={this.asset('increase')}

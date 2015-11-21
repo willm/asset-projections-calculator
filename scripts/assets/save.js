@@ -1,9 +1,8 @@
 var createRepo = require('../model-repository');
 var repo = createRepo(window.localStorage);
 var parse = require('./parse');
-var draw = require('../draw');
 
-module.exports = function save(e){
-    var asset = parse(e);
+module.exports = function save(assetForm){
+    var asset = parse(assetForm);
     repo.addAsset(asset);
 };
