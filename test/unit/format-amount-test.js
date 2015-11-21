@@ -1,5 +1,5 @@
 import assert from 'assert';
-import formatAmount from '../scripts/format-amount.js';
+import formatAmount from '../../scripts/format-amount.js';
 
 describe('format number', () => {
     [

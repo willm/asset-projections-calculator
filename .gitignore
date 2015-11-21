@@ -4,3 +4,4 @@ node_modules
 build
 css/vendor
 *.swo
+npm-debug.log

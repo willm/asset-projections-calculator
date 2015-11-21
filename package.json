@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha test/unit",
     "build": "make build"
   },
   "author": "",
@@ -17,11 +17,14 @@
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
     "mocha": "^2.3.3",
+    "react-addons-test-utils": "^0.14.3",
+    "react-shallow-testutils": "^0.6.1",
     "uglify-js": "^2.5.0"
   },
   "dependencies": {
     "bootstrap": "^3.3.5",
     "jquery": "^2.1.4",
+    "lodash.get": "^3.7.0",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
     "react-bootstrap-datetimepicker": "0.0.21"

@@ -1,5 +1,5 @@
 var createRepo = require('../model-repository');
-var repo = createRepo(localStorage);
+var repo = createRepo(window.localStorage);
 var parse = require('./parse');
 var draw = require('../draw');
 

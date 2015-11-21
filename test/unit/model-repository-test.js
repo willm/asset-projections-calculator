@@ -1,5 +1,5 @@
 'use strict';
-const createModel = require('../scripts/model-repository');
+const createModel = require('../../scripts/model-repository');
 const assert = require('assert');
 
 describe('model', () => {

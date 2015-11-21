@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('assert');
-const map = require('../../scripts/projections/mapper');
-const types = require('../../scripts/assets/types');
+const map = require('../../../scripts/projections/mapper');
+const types = require('../../../scripts/assets/types');
 
 describe('Projection mapper', () => {
     let assets, mapped;

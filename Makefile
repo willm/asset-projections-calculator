@@ -14,7 +14,9 @@ build:
 	make build-js
 
 build-js:
+	mkdir -p test/build
 	node_modules/.bin/browserify ./scripts/script.jsx -t babelify --outfile build/js/bundle.js
+	node_modules/.bin/browserify ./test/integration/asset-form.js -t babelify --outfile test/build/asset-form.js
 	node_modules/.bin/uglifyjs build/js/bundle.js > build/js/bundle.min.js
 
 deploy:

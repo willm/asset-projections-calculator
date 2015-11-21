@@ -1,8 +1,8 @@
 'use strict';
 var assert = require('assert');
-var assetValue = require('../../scripts/asset-value');
+var assetValue = require('../../../scripts/asset-value');
 var getAssetValue = assetValue.getAssetValue;
-var types = require('../../scripts/assets/types');
+var types = require('../../../scripts/assets/types');
 
 describe('asset value', () => {
     describe('get asset value', () => {

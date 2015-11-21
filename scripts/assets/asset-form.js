@@ -1,6 +1,7 @@
-const React = require('react');
 const save = require('./save');
 const types = require('./types');
+const React = require('react');
+const get = require('lodash.get');
 const AssetForm = React.createClass({
 
     onSubmit(e) {
@@ -10,14 +11,14 @@ const AssetForm = React.createClass({
     },
 
     asset(attribute) {
-        if(this.props.asset && this.props.asset[attribute]){
-            return this.props.asset[attribute];
-        }
-        return null;
+        return get(this.props.asset, attribute);
     },
 
     render() {
-        var typeOptions = Object.keys(types).map((t) => {
+        var typeOptions = Object.keys(types).map((t, i) => {
+            if (types[t].name === this.asset('type.name')) {
+                return <option selected key={types[t].name}>{types[t].name}</option>;
+            }
             return <option key={types[t].name}>{types[t].name}</option>;
         });
         return <form action="#" id="add-asset" onSubmit={this.onSubmit}>
