@@ -23,7 +23,19 @@ function getTotal(assets, year, type) {
     }, 0);
 }
 
+function getPercentSpread(assets) {
+    const thisYear = new Date().getFullYear();
+    return Object.keys(types).reduce((typeSpread, t) => {
+        typeSpread[types[t].name] = 
+            getTotal(assets, thisYear, types[t]) /
+            getTotal(assets, new Date().getFullYear()) *
+            100;
+        return typeSpread;
+    }, {});
+}
+
 module.exports = {
     getAssetValue: getAssetValue,
-    getTotal: getTotal
+    getTotal: getTotal,
+    getPercentSpread: getPercentSpread
 };

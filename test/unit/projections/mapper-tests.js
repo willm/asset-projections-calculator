@@ -60,4 +60,9 @@ describe('Projection mapper', () => {
         assert.equal(mapped.projections[0].type.name, 'Cash');
         assert.equal(mapped.projections[1].type.name, 'Property');
     });
+
+    it('calculates the percentage of the total portfolio for each type', () =>{
+        assert.equal(mapped.projections[0].percentSpread, 50);
+        assert.equal(mapped.projections[1].percentSpread, 50);
+    });
 });

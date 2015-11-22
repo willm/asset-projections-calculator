@@ -14,10 +14,12 @@ function getRowForAsset (asset) {
     </tr>;
 }
 
-function getTypeHeaderRow (type, colSpan) {
+function getTypeHeaderRow (typeGroup, colSpan) {
+    const type = typeGroup.type.name;
+    const percentSpread = typeGroup.percentSpread;
     return <tr key={type} className="pad-top no-stripe">
         <td colSpan={colSpan}>
-            <h4>{type}</h4>
+            <h4>{type} ({percentSpread} %)</h4>
         </td>
     </tr>;
 }
@@ -45,7 +47,7 @@ module.exports = React.createClass({
         }));
 
         let projectionRows = model.projections.reduce((types, typeGroup) => {
-            let headerRow = getTypeHeaderRow(typeGroup.type.name,
+            let headerRow = getTypeHeaderRow(typeGroup,
                 numberOfYears + 2);
             let assetRows = typeGroup.assets.map(getRowForAsset);
             let subtotalRow = getTypeSubtotalRow(typeGroup);

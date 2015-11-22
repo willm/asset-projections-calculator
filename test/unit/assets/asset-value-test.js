@@ -69,4 +69,36 @@ describe('asset value', () => {
             assert.equal(total, 202);
         });
     });
+    describe('get spread', () => {
+        it('calculates the percent spread per type', () => {
+            var expected = {
+                Assurance: 0,
+                Cash: 75,
+                Property: 25,
+                Securities: 0
+            };
+            var assets = [{
+                value: 50,
+                increase: 1,
+                purchaseDate: '10/25/15 8:57 AM',
+                type: types.CASH
+            },
+            {
+                value: 25,
+                increase: 1,
+                purchaseDate: '10/25/15 8:57 AM',
+                type: types.CASH
+            },
+            {
+                value: 25,
+                increase: 1,
+                purchaseDate: '10/25/15 8:57 AM',
+                type: types.PROPERTY
+            }];
+
+            let spread = assetValue.getPercentSpread(assets);
+
+            assert.deepEqual(expected, spread);
+        });
+    });
 });

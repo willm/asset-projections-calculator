@@ -11,6 +11,7 @@ function getTotals (assets, type) {
     }
     return totals;
 }
+
 function getAssetValues (asset) {
     let values = [];
     for(let year = nextYear; year <= maxProjectionYear; year++) {
@@ -18,14 +19,30 @@ function getAssetValues (asset) {
     }
     return values;
 }
+
+function byLiquidity(a, b) {
+    if (a.type.liquidity > b.type.liquidity) {
+        return -1;
+    }
+    if (a.type.liquidity < b.type.liquidity) {
+        return 1;
+    }
+    return 0;
+}
+
 function mapProjections (assets) {
     let years = [];
     for(let year = nextYear; year <= maxProjectionYear; year++) {
         years.push(year);
     }
+    const typePercentSpread = assetValue.getPercentSpread(assets);
     const assetsByType = assets.reduce((groups, asset) => {
         if (!groups[asset.type.name]) {
-            groups[asset.type.name] = { type: asset.type, assets: [] };
+            groups[asset.type.name] = {
+                type: asset.type,
+                assets: [],
+                percentSpread: typePercentSpread[asset.type.name]
+            };
         }
         asset.values = getAssetValues(asset);
         groups[asset.type.name].assets.push(asset);
@@ -39,15 +56,6 @@ function mapProjections (assets) {
         projections.push(value);
     }
     projections.sort(byLiquidity);
-    function byLiquidity(a, b) {
-        if (a.type.liquidity > b.type.liquidity) {
-            return -1;
-        }
-        if (a.type.liquidity < b.type.liquidity) {
-            return 1;
-        }
-        return 0;
-    }
 
     return {
         years: years,
