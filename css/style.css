@@ -22,3 +22,19 @@
     text-align: right;
 }
 
+.bar-container {
+    display: inline-block;
+    width: 200px;
+}
+
+.bar {
+    background-color: #25D200;
+    height: 32px;
+    opacity: 0.7;
+}
+
+.bar-label {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 20px;
+}

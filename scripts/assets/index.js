@@ -4,6 +4,7 @@ const React = require('react');
 const Modal = require('react-bootstrap/lib/Modal');
 const Button = require('react-bootstrap/lib/Button');
 const AssetForm = require('./asset-form');
+var Spread = require('../spread');
 const types = require('./types');
 const formatAmount = require('../format-amount');
 
@@ -43,57 +44,64 @@ module.exports = React.createClass({
                     aria-hidden="true">Add
                 </span>
             </button>
-            <table className="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Valuation Date</th>
-                        <th>Projected Increase</th>
-                        <th className="right value-col">Value</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                {this.props.assets.map(function (asset) {
-                    return <tr key={asset.id}>
-                        <td>{asset.name}</td>
-                        <td>{asset.type.name}</td>
-                        <td>{asset.purchaseDate}</td>
-                        <td>{asset.increase} %</td>
-                        <td className="right value-col" >{formatAmount(asset.value)}</td>
-                        <td className="right">
-                            <button className="btn btn-default"
-                                type="button"
-                                data-id={asset.id}
-                                onClick={this.open}>
-                                <span className="glyphicon glyphicon-pencil"
-                                    aria-hidden="true"
-                                    data-id={asset.id}>
-                                </span>
-                            </button>
-                            <button className="btn btn-default"
-                                type="button"
-                                data-id={asset.id}
-                                onClick={this.removeAsset}>
-                                <span className="glyphicon glyphicon-minus"
-                                    aria-hidden="true"
-                                    data-id={asset.id}>
-                                </span>
-                            </button>
-                        </td>
-                    </tr>;
-                }, this)}
-                </tbody>
-            </table>
-            <Modal show={this.state.showModal} onHide={this.close}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Asset</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AssetForm asset={this.state.selectedAsset} />
-                </Modal.Body>
-            </Modal>
+            <div className="row">
+                <div className="col-md-8">
+                    <table className="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Valuation Date</th>
+                                <th>Projected Increase</th>
+                                <th className="right value-col">Value</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {this.props.assets.map(function (asset) {
+                            return <tr key={asset.id}>
+                                <td>{asset.name}</td>
+                                <td>{asset.type.name}</td>
+                                <td>{asset.purchaseDate}</td>
+                                <td>{asset.increase} %</td>
+                                <td className="right value-col" >{formatAmount(asset.value)}</td>
+                                <td className="right">
+                                    <button className="btn btn-default"
+                                        type="button"
+                                        data-id={asset.id}
+                                        onClick={this.open}>
+                                        <span className="glyphicon glyphicon-pencil"
+                                            aria-hidden="true"
+                                            data-id={asset.id}>
+                                        </span>
+                                    </button>
+                                    <button className="btn btn-default"
+                                        type="button"
+                                        data-id={asset.id}
+                                        onClick={this.removeAsset}>
+                                        <span className="glyphicon glyphicon-minus"
+                                            aria-hidden="true"
+                                            data-id={asset.id}>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>;
+                        }, this)}
+                        </tbody>
+                    </table>
+                    <Modal show={this.state.showModal} onHide={this.close}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Edit Asset</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <AssetForm asset={this.state.selectedAsset} />
+                        </Modal.Body>
+                    </Modal>
+                </div>
+                <div className="col-md-4">
+                    <Spread assets={this.props.assets} />
+                </div>
+            </div>
         </div>;
     }
 });
