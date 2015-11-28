@@ -19,7 +19,7 @@ function getTypeHeaderRow (typeGroup, colSpan) {
     const percentSpread = typeGroup.percentSpread;
     return <tr key={type} className="pad-top no-stripe">
         <td colSpan={colSpan}>
-            <h4>{type} ({percentSpread} %)</h4>
+            <h4>{type} ({parseFloat(percentSpread).toFixed(2)} %)</h4>
         </td>
     </tr>;
 }
