@@ -43,7 +43,7 @@ module.exports = React.createClass({
         const numberOfYears = model.years.length;
         let years = [<th key={0}></th>];
         years = years.concat(model.years.map((y) => {
-            return <th key={y}>{y}</th>;
+            return <th className="right" key={y}>{y}</th>;
         }));
 
         let projectionRows = model.projections.reduce((types, typeGroup) => {
