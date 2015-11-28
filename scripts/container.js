@@ -15,7 +15,13 @@ module.exports = React.createClass({
         },
         render () {
             return <div id="main-container">
-                <h1>My Private Portfolio Projections</h1>
+                <div className="header">
+                    <h1 className="header-title">My Private Portfolio Projections</h1>
+                    <img
+                        src="http://www.finance-eco-money.org/images/logo/Logo2_XXS.png"
+                        className="header-logo"
+                        alt="logo" />
+                </div>
                 <Projections assets={this.state.assets}/>
                 <Assets  assets={this.state.assets}/>
             </div>
