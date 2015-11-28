@@ -36,7 +36,7 @@ module.exports = React.createClass({
     },
     render() {
         return <div className="narrow-table">
-            <h2>List Of Assets</h2>
+            <h2>List of Assets</h2>
             <button className="btn btn-default"
                 type="button"
                 onClick={this.open}>
